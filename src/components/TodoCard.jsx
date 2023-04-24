@@ -6,6 +6,7 @@ import {
   deleteTodo,
   doneTodo,
 } from "../redux/modules/todosReducer";
+import { Link } from "react-router-dom";
 
 const StWorkingList = styled.div``;
 
@@ -23,25 +24,59 @@ const StContentsBox = styled.div`
   }
 `;
 
-const StBtn = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  float: left;
-  width: 120px;
-  height: 40px;
-  padding: 0;
-  margin: 10px 20px 10px 0;
-  font-weight: 600;
-  line-height: 20px;
-  color: #fff;
-  border-radius: 5px;
-  transition: all 0.2s;
-  background: #8b8687;
-  &:hover {
-    background-color: #3a5134;
-    color: white;
+const StCompleteBtn = styled.button`
+  box-sizing: border-box;
+  appearance: none;
+  background-color: transparent;
+  border: 2px solid #2fc601;
+  border-radius: 0.6em;
+  color: #2fc601;
+  cursor: pointer;
+  align-self: center;
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1;
+  margin: 15px;
+  padding: 1em 2.8em;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 700;
+  transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+
+  &:hover,
+  &:focus {
+    color: #fff;
+    outline: 0;
+    box-shadow: 0 0 40px 40px #2fc601 inset;
+  }
+`;
+
+const StCancelBtn = styled.button`
+  box-sizing: border-box;
+  appearance: none;
+  background-color: transparent;
+  border: 2px solid #ffaa32;
+  border-radius: 0.6em;
+  color: #ffaa32;
+  cursor: pointer;
+  align-self: center;
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1;
+  margin: 15px;
+  padding: 1em 2.8em;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 700;
+  transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+
+  &:hover,
+  &:focus {
+    color: #fff;
+    outline: 0;
+    box-shadow: 0 0 40px 40px #ffaa32 inset;
   }
 `;
 
@@ -57,24 +92,62 @@ const StDoneList = styled.div`
 `;
 
 const StRemoveBtn = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  float: left;
-  width: 120px;
-  height: 40px;
-  padding: 0;
-  margin: 10px 20px 10px 0;
-  font-weight: 600;
-  line-height: 20px;
-  color: #fff;
-  border-radius: 5px;
-  transition: all 0.2s;
-  background: #8b8687;
-  &:hover {
-    background-color: #ff1140;
-    color: white;
+  box-sizing: border-box;
+  appearance: none;
+  background-color: transparent;
+  border: 2px solid #ff4f4f;
+  border-radius: 0.6em;
+  color: #ff4f4f;
+  cursor: pointer;
+  align-self: center;
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1;
+  margin: 15px;
+  padding: 1em 2.8em;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 700;
+  transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+
+  &:hover,
+  &:focus {
+    color: #fff;
+    outline: 0;
+    box-shadow: 0 0 40px 40px #ff4f4f inset;
+  }
+`;
+
+const StLink = styled.div`
+  margin: 15px;
+  /* background-color: gray; */
+`;
+
+const StLinkButton = styled(Link)`
+  box-sizing: border-box;
+  appearance: none;
+  background-color: transparent;
+  border: 2px solid #c9ceff;
+  border-radius: 0.6em;
+  color: #c9ceff;
+  cursor: pointer;
+  align-self: center;
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1;
+  padding: 0.6rem 8rem;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 700;
+  transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+
+  &:hover,
+  &:focus {
+    color: #fff;
+    outline: 0;
+    box-shadow: 0 0 40px 40px #c9ceff inset;
   }
 `;
 
@@ -96,7 +169,10 @@ const TodoCard = ({ todo }) => {
   return todo.isDone === false ? (
     <StWorkingList className="workingList">
       <StContentsBox className="contentsBox">
-        <div className="detail">상세보기</div>
+        {/* ----- 리액트 라우터 추가 구문 -----*/}
+        <StLink>
+          <StLinkButton to={`/${todo.id}`}>+</StLinkButton>
+        </StLink>
         <div className="card">
           <h2>{todo.title}</h2>
           <p>{todo.content}</p>
@@ -108,9 +184,9 @@ const TodoCard = ({ todo }) => {
             </StRemoveBtn>
           </div>
           <div className="doneBox">
-            <StBtn className="btn" onClick={clickDoneButton}>
+            <StCompleteBtn className="btn" onClick={clickDoneButton}>
               완료
-            </StBtn>
+            </StCompleteBtn>
           </div>
         </StRemoveCancelBoxArea>
       </StContentsBox>
@@ -119,6 +195,10 @@ const TodoCard = ({ todo }) => {
     <StDoneList className="doneList">
       <StContentsBox>
         <div className="contentsBox">
+          {/* ----- 리액트 라우터 추가 구문 -----*/}
+          <StLink>
+            <StLinkButton to={`/${todo.id}`}>+</StLinkButton>
+          </StLink>
           <div className="card">
             <h2>{todo.title}</h2>
             <p>{todo.content}</p>
@@ -131,9 +211,9 @@ const TodoCard = ({ todo }) => {
             </StRemoveBtn>
           </div>
           <div className="cancelBox">
-            <StBtn className="btn" onClick={clickCancelButton}>
+            <StCancelBtn className="btn" onClick={clickCancelButton}>
               취소
-            </StBtn>
+            </StCancelBtn>
           </div>
         </StRemoveCancelBoxArea>
       </StContentsBox>

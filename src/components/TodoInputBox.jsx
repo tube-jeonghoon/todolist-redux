@@ -18,9 +18,20 @@ const StContentBox = styled.div`
   padding: 15px;
 `;
 
-const StInputBox = styled.input`
-  width: 300px;
-  height: 32px;
+const StInputTitleBox = styled.input`
+  width: 400px;
+  height: 45px;
+  font-size: 15px;
+  border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 1rem;
+  background-color: #e3e3e3;
+`;
+
+const StInputContentBox = styled.input`
+  width: 400px;
+  height: 45px;
   font-size: 15px;
   border: 0;
   border-radius: 15px;
@@ -30,25 +41,32 @@ const StInputBox = styled.input`
 `;
 
 const StAddButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  float: left;
-  width: 120px;
-  height: 40px;
-  padding: 0;
-  margin: 10px 20px 10px 0;
-  font-weight: 600;
-  line-height: 20px;
-  color: #fff;
-  border-radius: 5px;
-  transition: all 0.2s;
-  background: #333030;
-  &:hover {
-    background-color: #ff3636;
-    color: white;
+  box-sizing: border-box;
+  appearance: none;
+  background-color: transparent;
+  border: 2px solid #2fc601;
+  border-radius: 0.6em;
+  color: #2fc601;
+  cursor: pointer;
+  align-self: center;
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1;
+  margin: 15px;
+  padding: 1em 2.8em;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 700;
+
+  &:hover,
+  &:focus {
+    color: #fff;
+    outline: 0;
+    box-shadow: 0 0 40px 40px #2fc601 inset;
   }
+
+  transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
 `;
 
 const TodoInputBox = () => {
@@ -78,18 +96,20 @@ const TodoInputBox = () => {
       <StTodoInputBox className="todoInputBox">
         {/* -------------- Title Input Box -------------- */}
         <StTitleBox className="titleBox">
-          <StInputBox
+          <StInputTitleBox
             name="title"
             value={input.title}
             onChange={inputChangeHandler}
+            placeholder="Title"
           />
         </StTitleBox>
         {/* -------------- Content Input Box -------------- */}
         <StContentBox className="contentBox">
-          <StInputBox
+          <StInputContentBox
             name="content"
             value={input.content}
             onChange={inputChangeHandler}
+            placeholder="Content"
           />
         </StContentBox>
         {/* -------------- Add Button -------------- */}
