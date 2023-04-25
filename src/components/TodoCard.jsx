@@ -7,6 +7,83 @@ import {
   doneTodo,
 } from "../redux/modules/todosReducer";
 import { Link } from "react-router-dom";
+import confetti from "https://esm.run/canvas-confetti@1";
+
+const TodoCard = ({ todo }) => {
+  const dispatch = useDispatch();
+
+  const clickRemoveButton = () => {
+    dispatch(deleteTodo(todo.id));
+  };
+
+  const clickDoneButton = () => {
+    dispatch(doneTodo(todo.id));
+    confetti({
+      particleCount: 120,
+      spread: 200,
+    });
+  };
+
+  const clickCancelButton = () => {
+    dispatch(cancelTodo(todo.id));
+  };
+
+  return todo.isDone === false ? (
+    <StWorkingList className="workingList">
+      <StContentsBox className="contentsBox">
+        {/* ----- 리액트 라우터 추가 구문 -----*/}
+        <StLink>
+          <StLinkButton to={`/${todo.id}`}>+</StLinkButton>
+        </StLink>
+        <div className="card">
+          <h2>{todo.title}</h2>
+          <p>{todo.content}</p>
+        </div>
+        <StRemoveCancelBoxArea>
+          <div className="removeBox">
+            <StRemoveBtn className="btn" onClick={clickRemoveButton}>
+              삭제
+            </StRemoveBtn>
+          </div>
+          <div className="doneBox">
+            <StCompleteBtn className="btn" onClick={clickDoneButton}>
+              완료
+            </StCompleteBtn>
+          </div>
+        </StRemoveCancelBoxArea>
+      </StContentsBox>
+    </StWorkingList>
+  ) : (
+    <StDoneList className="doneList">
+      <StContentsBox>
+        <div className="contentsBox">
+          {/* ----- 리액트 라우터 추가 구문 -----*/}
+          <StLink>
+            <StLinkButton to={`/${todo.id}`}>+</StLinkButton>
+          </StLink>
+          <div className="card">
+            <h2>{todo.title}</h2>
+            <p>{todo.content}</p>
+          </div>
+        </div>
+        <StRemoveCancelBoxArea className="removeCancelBoxArea">
+          <div className="removeBox">
+            <StRemoveBtn className="btn" onClick={clickRemoveButton}>
+              삭제
+            </StRemoveBtn>
+          </div>
+          <div className="cancelBox">
+            <StCancelBtn className="btn" onClick={clickCancelButton}>
+              취소
+            </StCancelBtn>
+          </div>
+        </StRemoveCancelBoxArea>
+      </StContentsBox>
+    </StDoneList>
+  );
+};
+
+export default TodoCard;
 
 const StWorkingList = styled.div``;
 
@@ -150,75 +227,3 @@ const StLinkButton = styled(Link)`
     box-shadow: 0 0 40px 40px #c9ceff inset;
   }
 `;
-
-const TodoCard = ({ todo }) => {
-  const dispatch = useDispatch();
-
-  const clickRemoveButton = () => {
-    dispatch(deleteTodo(todo.id));
-  };
-
-  const clickDoneButton = () => {
-    dispatch(doneTodo(todo.id));
-  };
-
-  const clickCancelButton = () => {
-    dispatch(cancelTodo(todo.id));
-  };
-
-  return todo.isDone === false ? (
-    <StWorkingList className="workingList">
-      <StContentsBox className="contentsBox">
-        {/* ----- 리액트 라우터 추가 구문 -----*/}
-        <StLink>
-          <StLinkButton to={`/${todo.id}`}>+</StLinkButton>
-        </StLink>
-        <div className="card">
-          <h2>{todo.title}</h2>
-          <p>{todo.content}</p>
-        </div>
-        <StRemoveCancelBoxArea>
-          <div className="removeBox">
-            <StRemoveBtn className="btn" onClick={clickRemoveButton}>
-              삭제
-            </StRemoveBtn>
-          </div>
-          <div className="doneBox">
-            <StCompleteBtn className="btn" onClick={clickDoneButton}>
-              완료
-            </StCompleteBtn>
-          </div>
-        </StRemoveCancelBoxArea>
-      </StContentsBox>
-    </StWorkingList>
-  ) : (
-    <StDoneList className="doneList">
-      <StContentsBox>
-        <div className="contentsBox">
-          {/* ----- 리액트 라우터 추가 구문 -----*/}
-          <StLink>
-            <StLinkButton to={`/${todo.id}`}>+</StLinkButton>
-          </StLink>
-          <div className="card">
-            <h2>{todo.title}</h2>
-            <p>{todo.content}</p>
-          </div>
-        </div>
-        <StRemoveCancelBoxArea className="removeCancelBoxArea">
-          <div className="removeBox">
-            <StRemoveBtn className="btn" onClick={clickRemoveButton}>
-              삭제
-            </StRemoveBtn>
-          </div>
-          <div className="cancelBox">
-            <StCancelBtn className="btn" onClick={clickCancelButton}>
-              취소
-            </StCancelBtn>
-          </div>
-        </StRemoveCancelBoxArea>
-      </StContentsBox>
-    </StDoneList>
-  );
-};
-
-export default TodoCard;

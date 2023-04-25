@@ -3,20 +3,6 @@ import TodoCard from "./TodoCard";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-const StWorkingZone = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-auto-rows: minmax(100px, auto);
-  gap: 5px;
-`;
-
-const StDoneZone = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-auto-rows: minmax(100px, auto);
-  gap: 5px;
-`;
-
 const TodoBox = () => {
   const todos = useSelector((state) => state.todos);
 
@@ -50,3 +36,17 @@ const TodoBox = () => {
 };
 
 export default TodoBox;
+
+const StWorkingZone = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-rows: minmax(100px, auto);
+  gap: 5px;
+`;
+
+const StDoneZone = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-rows: minmax(100px, auto);
+  gap: 5px;
+`;

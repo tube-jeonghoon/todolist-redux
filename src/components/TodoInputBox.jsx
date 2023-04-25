@@ -5,6 +5,58 @@ import { inputChange, resetInputBox } from "../redux/modules/inputReducer";
 import { addTodo } from "../redux/modules/todosReducer";
 import { v4 as uuidv4 } from "uuid";
 
+const TodoInputBox = () => {
+  const input = useSelector((state) => state.input);
+  const dispatch = useDispatch();
+
+  // inputHandler
+  const inputChangeHandler = (e) => {
+    dispatch(inputChange(e.target.name, e.target.value));
+  };
+
+  // 추가하기 function
+  const clickAddButton = () => {
+    dispatch(
+      addTodo({
+        id: uuidv4(),
+        title: input.title,
+        content: input.content,
+        isDone: false,
+      })
+    );
+    dispatch(resetInputBox());
+  };
+
+  return (
+    <div className="TodoInputBox">
+      <StTodoInputBox className="todoInputBox">
+        {/* -------------- Title Input Box -------------- */}
+        <StTitleBox className="titleBox">
+          <StInputTitleBox
+            name="title"
+            value={input.title}
+            onChange={inputChangeHandler}
+            placeholder="Title"
+          />
+        </StTitleBox>
+        {/* -------------- Content Input Box -------------- */}
+        <StContentBox className="contentBox">
+          <StInputContentBox
+            name="content"
+            value={input.content}
+            onChange={inputChangeHandler}
+            placeholder="Content"
+          />
+        </StContentBox>
+        {/* -------------- Add Button -------------- */}
+        <StAddButton onClick={clickAddButton}> 추가하기 </StAddButton>
+      </StTodoInputBox>
+    </div>
+  );
+};
+
+export default TodoInputBox;
+
 const StTodoInputBox = styled.div`
   display: flex;
   justify-content: flex-start;
@@ -68,55 +120,3 @@ const StAddButton = styled.button`
 
   transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
 `;
-
-const TodoInputBox = () => {
-  const input = useSelector((state) => state.input);
-  const dispatch = useDispatch();
-
-  // inputHandler
-  const inputChangeHandler = (e) => {
-    dispatch(inputChange(e.target.name, e.target.value));
-  };
-
-  // 추가하기 function
-  const clickAddButton = () => {
-    dispatch(
-      addTodo({
-        id: uuidv4(),
-        title: input.title,
-        content: input.content,
-        isDone: false,
-      })
-    );
-    dispatch(resetInputBox());
-  };
-
-  return (
-    <div className="TodoInputBox">
-      <StTodoInputBox className="todoInputBox">
-        {/* -------------- Title Input Box -------------- */}
-        <StTitleBox className="titleBox">
-          <StInputTitleBox
-            name="title"
-            value={input.title}
-            onChange={inputChangeHandler}
-            placeholder="Title"
-          />
-        </StTitleBox>
-        {/* -------------- Content Input Box -------------- */}
-        <StContentBox className="contentBox">
-          <StInputContentBox
-            name="content"
-            value={input.content}
-            onChange={inputChangeHandler}
-            placeholder="Content"
-          />
-        </StContentBox>
-        {/* -------------- Add Button -------------- */}
-        <StAddButton onClick={clickAddButton}> 추가하기 </StAddButton>
-      </StTodoInputBox>
-    </div>
-  );
-};
-
-export default TodoInputBox;

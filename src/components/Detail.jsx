@@ -3,8 +3,36 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
+const Detail = () => {
+  const todos = useSelector((state) => state.todos);
+  // 내가 이동한 URL 주소 가져오기
+  const { id } = useParams();
+  // todos의 내용(todos과 내가 이동한 URL(id) 일치한(find) 항목을 todo에 넣기
+  const todo = todos.find((item) => {
+    return item.id === id;
+  });
+
+  const navigate = useNavigate();
+
+  return (
+    <StDetail>
+      <StCardBox className="cardBox">
+        <StCardBoxHeader className="cardBoxHeader">
+          <StBackButton onClick={() => navigate("/")}>Back</StBackButton>
+        </StCardBoxHeader>
+        <StCardBoxConetent className="cardBoxConetent">
+          <h2>{todo.title}</h2>
+          <div>{todo.content}</div>
+        </StCardBoxConetent>
+      </StCardBox>
+    </StDetail>
+  );
+};
+
+export default Detail;
+
 const StDetail = styled.div`
-  display: flex;
+  /* display: flex; */
   height: 100%;
   width: 100%;
 `;
@@ -58,31 +86,3 @@ const StBackButton = styled.button`
     box-shadow: 0 0 40px 40px #ff5448 inset;
   }
 `;
-
-const Detail = () => {
-  const todos = useSelector((state) => state.todos);
-  // 내가 이동한 URL 주소 가져오기
-  const { id } = useParams();
-  // todos의 내용(todos과 내가 이동한 URL(id) 일치한(find) 항목을 todo에 넣기
-  const todo = todos.find((item) => {
-    return item.id === id;
-  });
-
-  const navigate = useNavigate();
-
-  return (
-    <StDetail>
-      <StCardBox className="cardBox">
-        <StCardBoxHeader className="cardBoxHeader">
-          <StBackButton onClick={() => navigate("/")}>Back</StBackButton>
-        </StCardBoxHeader>
-        <StCardBoxConetent className="cardBoxConetent">
-          <h2>{todo.title}</h2>
-          <div>{todo.content}</div>
-        </StCardBoxConetent>
-      </StCardBox>
-    </StDetail>
-  );
-};
-
-export default Detail;
