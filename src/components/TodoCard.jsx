@@ -7,7 +7,7 @@ import {
   doneTodo,
 } from "../redux/modules/todosReducer";
 import { Link } from "react-router-dom";
-import confetti from "https://esm.run/canvas-confetti@1";
+// import confetti from "https://esm.run/canvas-confetti@1";
 
 const TodoCard = ({ todo }) => {
   const dispatch = useDispatch();
@@ -18,10 +18,10 @@ const TodoCard = ({ todo }) => {
 
   const clickDoneButton = () => {
     dispatch(doneTodo(todo.id));
-    confetti({
-      particleCount: 120,
-      spread: 200,
-    });
+    // confetti({
+    //   particleCount: 120,
+    //   spread: 200,
+    // });
   };
 
   const clickCancelButton = () => {
